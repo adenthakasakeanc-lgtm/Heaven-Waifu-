@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Waifu Heaven 1000</title>
+
+<style>
+body{
+margin:0;
+background:#0a0a0a;
+font-family:Arial;
+color:white;
+}
+
+header{
+text-align:center;
+padding:15px;
+font-size:25px;
+background:#151515;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+gap:10px;
+padding:10px;
+}
+
+.gallery img{
+width:100%;
+border-radius:12px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.gallery img:hover{
+transform:scale(1.05);
+}
+
+.viewer{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.viewer img{
+max-width:95%;
+max-height:95%;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>🔥 Waifu Heaven 1000 🔥</header>
+
+<div class="gallery" id="gallery"></div>
+
+<div class="viewer" id="viewer" onclick="closeViewer()">
+<img id="viewerImg">
+</div>
+
+<script>
+
+const gallery=document.getElementById("gallery")
+
+async function loadWaifu(){
+
+for(let i=0;i<1000;i++){
+
+fetch("https://api.waifu.pics/sfw/waifu")
+.then(res=>res.json())
+.then(data=>{
+
+const img=document.createElement("img")
+img.src=data.url
+
+img.onclick=function(){
+openViewer(data.url)
+}
+
+gallery.appendChild(img)
+
+})
+
+}
+
+}
+
+function openViewer(src){
+document.getElementById("viewer").style.display="flex"
+document.getElementById("viewerImg").src=src
+}
+
+function closeViewer(){
+document.getElementById("viewer").style.display="none"
+}
+
+loadWaifu()
+
+</script>
+
+</body>
+</html>
